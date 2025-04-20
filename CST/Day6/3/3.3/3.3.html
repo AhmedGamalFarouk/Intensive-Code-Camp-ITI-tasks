@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .game-container {
+            display: inline-block;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+            margin-top: 20px;
+        }
+
+        .card {
+            width: 100px;
+            height: 100px;
+            background-color: #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .score {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Memory Game</h1>
+    <div class="game-container">
+        <div class="score">Matches: <span id="matches">0</span></div>
+        <div class="game-grid" id="game-grid"></div>
+    </div>
+
+    <script>
+        let cards = [];
+        let isFirstCardFlipped = false;
+        let canClick = true;
+        let firstCard, secondCard;
+        let matchCount = 0;
+
+        const cardImages = [
+            'memory Game/1.gif', 'memory Game/1.gif',
+            'memory Game/2.gif', 'memory Game/2.gif',
+            'memory Game/3.gif', 'memory Game/3.gif',
+            'memory Game/4.gif', 'memory Game/4.gif',
+            'memory Game/5.gif', 'memory Game/5.gif',
+            'memory Game/6.gif', 'memory Game/6.gif'
+        ];
+
+
+        function startGame() {
+
+            const gameBoard = document.getElementById('game-grid');
+            const shuffledCards = shuffleCards(cardImages);
+
+            shuffledCards.forEach(image => {
+
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                card.dataset.cardType = image;
+
+                const frontImage = document.createElement('img');
+                frontImage.className = 'front-face';
+                frontImage.src = image;
+                frontImage.style.display = 'none';
+
+                const backImage = document.createElement('img');
+                backImage.className = 'back-face';
+                backImage.src = 'memory Game/Moon.gif';
+
+
+                card.appendChild(frontImage);
+                card.appendChild(backImage);
+
+                card.addEventListener('click', flipCard);
+
+                gameBoard.appendChild(card);
+                cards.push(card);
+            });
+        }
+
+        function shuffleCards(cards) {
+            const cardsCopy = [...cards];
+            for (let i = cardsCopy.length - 1; i > 0; i--) {
+                const randomPosition = Math.floor(Math.random() * (i + 1));
+                [cardsCopy[i], cardsCopy[randomPosition]] = [cardsCopy[randomPosition], cardsCopy[i]];
+            }
+            return cardsCopy;
+        }
+        function flipCard() {
+
+            if (!canClick) return;
+
+            if (this === firstCard) return;
+
+
+            const frontImage = this.querySelector('.front-face');
+            const backImage = this.querySelector('.back-face');
+
+
+            frontImage.style.display = 'block';
+            backImage.style.display = 'none';
+
+
+            if (!isFirstCardFlipped) {
+                isFirstCardFlipped = true;
+                firstCard = this;
+                return;
+            }
+
+            secondCard = this;
+
+            checkMatch();
+        }
+
+        function checkMatch() {
+
+            const isMatch = firstCard.dataset.cardType === secondCard.dataset.cardType;
+
+            if (isMatch) {
+
+                disableMatchedCards();
+
+                updateScore();
+
+                checkWin();
+            } else {
+
+                flipCardsBack();
+            }
+        }
+
+
+        function disableMatchedCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+
+            resetTurn();
+        }
+
+
+        function flipCardsBack() {
+
+            canClick = false;
+
+            setTimeout(() => {
+                const firstCardFront = firstCard.querySelector('.front-face');
+                const firstCardBack = firstCard.querySelector('.back-face');
+                const secondCardFront = secondCard.querySelector('.front-face');
+                const secondCardBack = secondCard.querySelector('.back-face');
+
+                firstCardFront.style.display = 'none';
+                firstCardBack.style.display = 'block';
+                secondCardFront.style.display = 'none';
+                secondCardBack.style.display = 'block';
+
+                resetTurn();
+            }, 1000);
+        }
+
+
+        function resetTurn() {
+            isFirstCardFlipped = false;
+            canClick = true;
+            firstCard = null;
+            secondCard = null;
+        }
+
+
+        function updateScore() {
+            matchCount++;
+            document.getElementById('matches').textContent = matchCount;
+        }
+
+
+        function checkWin() {
+
+            if (matchCount === cardImages.length / 2) {
+
+                setTimeout(() => {
+                    alert('Congratulations! You won the game!');
+                    resetGame();
+                }, 500);
+            }
+        }
+
+
+        function resetGame() {
+
+            const gameBoard = document.getElementById('game-grid');
+            gameBoard.innerHTML = '';
+
+            cards = [];
+            matchCount = 0;
+            document.getElementById('matches').textContent = '0';
+
+            startGame();
+        }
+
+        window.onload = startGame;
+    </script>
+</body>
+
+</html>

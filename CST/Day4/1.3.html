@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <script>
+
+        function largestWord(str) {
+            let words = str.split(" ");
+            let largest = "";
+            for (let i = 0; i < words.length; i++) {
+                if (words[i].length > largest.length) {
+                    largest = words[i];
+                }
+            }
+            return largest;
+        }
+    </script>
+
+</body>
+
+</html>

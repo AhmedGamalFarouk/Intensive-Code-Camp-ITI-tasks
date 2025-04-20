@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Parent Window</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script>
+        let win;
+        let movementInterval;
+        let xDirection = 1;
+        let yDirection = 1;
+        let x = 0;
+        let y = 0;
+        const step = 10;
+
+        function openWin() {
+            win = open('Child.html', '', 'width=150,height=150,alwaysRaised=yes');
+            setTimeout(() => {
+                if (win && !win.closed) win.focus();
+            }, 50);
+        }
+
+        function closeWin() {
+            if (win && !win.closed) win.close();
+        }
+
+        function moveWin() {
+            if (!win || win.closed) {
+                alert('Child window is not open!');
+                return;
+            }
+
+            movementInterval = setInterval(function () {
+                if (x <= 0 && y <= 0) {
+                    xDirection = 1;
+                    yDirection = 1;
+                    x = 0;
+                    y = 0;
+                } else if (x >= (screen.width / 3) && y >= (screen.height / 2)) {
+                    xDirection = -1;
+                    yDirection = -1;
+
+                    x = screen.width / 3;
+                    y = screen.height / 2;
+
+                }
+
+                x += step * xDirection;
+                y += step * yDirection;
+
+                try {
+                    win.moveTo(x, y);
+                    win.focus();
+                } catch (e) {
+                    clearInterval(movementInterval);
+                    alert('Child window is closed!');
+                }
+            }, 100);
+        }
+
+        function stopMovement() {
+            if (movementInterval) {
+                clearInterval(movementInterval);
+                movementInterval = null;
+                setTimeout(() => {
+                    if (win && !win.closed) win.focus();
+                }, 50);
+            } else {
+                alert('Window is not moving!');
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <center>
+        <h1>Parent Window</h1>
+        <input type="button" value="open win" onclick="openWin()" />
+        <input type="button" value="close win" onclick="closeWin()" />
+        <input type="button" value="move win" onclick="moveWin()" />
+        <input type="button" value="stop movement" onclick="stopMovement()" />
+    </center>
+</body>
+
+</html>

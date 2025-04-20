@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <script>
+
+        let input;
+        let letter;
+        let caseSensitivity;
+
+        input = prompt("Enter a String: ");
+        letter = prompt("Enter a letter to search: ");
+        caseSensitivity = confirm("Do you want to consider difference between letter cases?");
+
+        if (caseSensitivity) {
+            let count = 0;
+
+            for (let i = 0; i < input.length; i++) {
+                if (input[i] == letter) {
+
+                    count++;
+                }
+            }
+            console.log(count);
+        } else {
+            let count = 0;
+            for (let i = 0; i < input.length; i++) {
+                if (input[i].toLowerCase() == letter.toLowerCase()) {
+                    count++;
+                }
+            }
+            console.log(count);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Welcome</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Welcome!</h2>
+    <table id="userInfoTable">
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td id="nameValue"></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td id="addressValue"></td>
+        </tr>
+        <tr>
+            <td>Mobile</td>
+            <td id="mobileValue"></td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td id="emailValue"></td>
+        </tr>
+    </table>
+
+    <script>
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            document.querySelector('#nameValue').textContent = urlParams.get('name') || '';
+            document.querySelector('#addressValue').textContent = urlParams.get('address') || '';
+            document.querySelector('#mobileValue').textContent = urlParams.get('mobile') || '';
+            document.querySelector('#emailValue').textContent = urlParams.get('email') || '';
+        };
+    </script>
+</body>
+
+</html>

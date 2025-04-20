@@ -1,0 +1,116 @@
+<html>
+
+<head>
+    <title>Registration Form</title>
+    <link rel='stylesheet' href='styles.css'>
+</head>
+
+<body>
+    <center>
+        <h1><u>Registration Form</u></h1>
+        <form action="page1.html">
+            <table>
+                <tr>
+                    <td> <label for="firstname">First Name </label></td>
+                    <td><input type=" text" id="firstname" name="firstname" placeholder="Enter your first name"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="lastname">Last Name</label></td>
+                    <td><input type=" text" id="lastname" name="lasttname" placeholder="Enter your last name"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="email">Email</label></td>
+                    <td><input type=" email" id="email" name="email" placeholder="Enter your email"></td>
+                </tr>
+
+                <tr>
+                    <td><label for="password">Password</label></td>
+                    <td><input type="password" id="password" name="password" placeholder="Enter your password"></td>
+                </tr>
+
+                <tr>
+                    <td rowspan="2">Gender</td>
+                    <td>
+                        <label for="male"></label>Male</label><input type="radio" id="male" name="gender" value="male">
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="female">Female</label><input type="radio" id="female" name="gender" value="female">
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="country">Country</label></td>
+                    <td>
+                        <select id="country" name="country">
+                            <optgroup label="Africa">
+                                <option value="Egypt">Egypt</option>
+                                <option value="Morocco">Morocco</option>
+                                <option value="Tunisia">Tunisia</option>
+                                <option value="Libya">Libya</option>
+                                <option value="Sudan">Sudan</option>
+                            </optgroup>
+                            <optgroup label="Europe" disabled>
+                                <option value="France">France</option>
+                                <option value="Germany">Germany</option>
+                                <option value="Italy">Italy</option>
+                                <option value="Spain">Spain</option>
+                                <option value="United Kingdom">United Kingdom</option>
+                            </optgroup>
+                            <optgroup label="Asia">
+                                <option value="Afghanistan">Afghanistan</option>
+                                <option value="India">India</option>
+                                <option value="Pakistan">Pakistan</option>
+                                <option value="Sri Lanka">Sri Lanka</option>
+                                <option value="Nepal">Nepal</option>
+                            </optgroup>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="birthdate">Birthdate</label></td>
+                    <td><input type="date" id="birthdate" name="birthdate"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"> <u>Interests</u></td>
+                </tr>
+                <tr class="no-border">
+                    <td colspan="2">
+                        <label for="sports"><input type="checkbox" id="sports" name="sports"
+                                value="sports">Sports</label>
+                        <label for="music"><input type="checkbox" id="music" name="music" value="music">Music</label>
+                        <label for="fashion"><input type="checkbox" id="fashion" name="fashion"
+                                value="fashion">Fashion</label>
+                    </td>
+
+                </tr>
+                <tr class="no-border">
+                    <td colspan="2">
+                        <label for="reading"><input type="checkbox" id="reading" name="reading"
+                                value="reading">Reading</label>
+                        <label for="shopping"><input type="checkbox" id="shopping" name="shopping"
+                                value="shopping">Shopping</label>
+                        <label for="movies"><input type="checkbox" id="movies" name="movies"
+                                value="movies">Movies</label>"
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><u>Bio</u></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <label for="bio"><textarea id="bio" name="bio" rows="5" cols="50"></textarea></label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="submit" value="Register">
+                        <input type="reset" value="Clear">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+</html>

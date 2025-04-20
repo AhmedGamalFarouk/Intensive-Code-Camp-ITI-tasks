@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Marbles</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="marble-container">
+        <img src="../../3/3.2/marbels/marble1.jpg" class="marble" id="marble1">
+        <img src="../../3/3.2/marbels/marble1.jpg" class="marble" id="marble2">
+        <img src="../../3/3.2/marbels/marble1.jpg" class="marble" id="marble3">
+        <img src="../../3/3.2/marbels/marble1.jpg" class="marble" id="marble4">
+        <img src="../../3/3.2/marbels/marble1.jpg" class="marble" id="marble5">
+    </div>
+
+    <script>
+        const marbles = document.querySelectorAll('.marble');
+        const orangeMarble = "../../3/3.2/marbels/marble2.jpg";
+        const regularMarbles = [];
+        let currentMarbleIndex = 0;
+        let animationInterval;
+        let isPaused = false;
+
+        marbles.forEach(marble => {
+            regularMarbles.push(marble.src);
+        });
+
+        function moveMarble() {
+
+            marbles.forEach((marble, index) => {
+                marble.src = regularMarbles[index];
+            });
+
+            marbles[currentMarbleIndex].src = orangeMarble;
+
+            currentMarbleIndex = (currentMarbleIndex + 1) % marbles.length;
+        }
+
+        function startAnimation() {
+
+            moveMarble();
+
+            animationInterval = setInterval(moveMarble, 1000);
+        }
+
+        function pauseAnimation() {
+            clearInterval(animationInterval);
+            isPaused = true;
+        }
+
+        function resumeAnimation() {
+            if (isPaused) {
+                animationInterval = setInterval(moveMarble, 1000);
+                isPaused = false;
+            }
+        }
+
+        marbles.forEach(marble => {
+            marble.addEventListener('mouseenter', pauseAnimation);
+            marble.addEventListener('mouseleave', resumeAnimation);
+        });
+
+        window.onload = startAnimation;
+    </script>
+</body>
+
+</html>

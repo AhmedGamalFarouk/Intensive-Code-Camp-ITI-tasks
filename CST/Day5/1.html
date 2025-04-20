@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <script>
+
+        function showAddr(addrObj) {
+            return addrObj.buildingNum + " " + addrObj.street + ", " + addrObj.city + " registered in " + new Date().getDate() + "/" + new Date().getMonth() + "/" + new Date().getFullYear();
+        }
+
+
+        var addrObj = {
+            street: "abc st.",
+            buildingNum: 15,
+            city: "xyz"
+        };
+        console.log(showAddr(addrObj));
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
+
+
+<!-- 
+1.1.1. Write a function called showAddr that accepts an address object with the
+following properties: street, buildingNum, and city. It should return the
+complete address of the user with the registered date.
+Example: if the addrObj={street:”abc st.”,buildingNum:15,city:”xyz”}, calling
+showAddr(addrObj) will return “15 abc st., xyz city registered in 15/10/2024”.  -->

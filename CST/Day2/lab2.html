@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Page Title</title>
+</head>
+
+<body>
+
+
+    <script>
+        //TODO: 1.1. Ask the user to enter a message then display it using the different html 
+        // heading tags (from <h1> to <h6>) using Loops. DO NOT write the header element
+        // explicitly in your script!
+
+        // let message = prompt("Enter a message:");
+        // alert(message);
+        // for (let i = 1; i <= 6; i++) {
+        //     document.writeln("<h" + i + ">" + message + "</h" + i + ">");
+
+        // }
+        //==================================================================================================
+
+
+        // TODO:1.2.Write a script that takes from the user n values and returns their sum, stop
+        // receiving values from user when he enters 0 or sum exceeds 100, check that the
+        // entered data is numeric and inform the user with the total sum of the entered values in console.
+
+        // let sum = 0;
+        // let num;
+
+        // while (sum < 100 && num != 0) {
+
+        //     let userInput = prompt("Enter a number:");
+
+        //     num = parseInt(userInput);
+
+        //     if (isFinite(num)) {
+        //         sum += num;
+        //     } else {
+        //         console.log("Please enter a valid number");
+        //     }
+        // }
+
+        // console.log("Total sum:", sum);
+
+        //==================================================================================================
+
+
+        // TODO: 1.3. Using ternary operator, write a script that accepts 2 numbers from the user
+        // and display the maximum value of the entered data.
+
+        // let number1 = 5;
+        // let number2 = 10;
+
+        // number1 > number2 ? console.log("number " + number1 + " is bigger") : console.log("number " + number2 + " is bigger");
+
+        //==================================================================================================
+
+        //TODO: 1.4. Create a function that accepts three numerical values x, y and z. The function should check if x is divisible by y only or z only or both y and z.
+
+        // let number1 = prompt("Enter the first number:");
+        // let number2 = prompt("Enter the second number:");
+        // let number3 = prompt("Enter the third number:");
+        // if (number2 === 0 || number3 === 0) {
+        //     console.log("Cannot divide by zero");
+        // }
+        //     else if (number1 % number2 == 0 && number1 % number3 == 0) {
+        //         console.log(number1 + " is divisible by both " + number2 + " and " + number3);
+        //     } else if (number1 % number2 == 0) {
+        //         console.log(number1 + " is divisible by " + number2);
+        //     } else if (number1 % number3 == 0) {
+        //         console.log(number1 + " is divisible by " + number3);
+        //     } else {
+        //         console.log(number1 + " is not divisible by " + number2 + " or " + number3);
+        //     }
+
+        //==================================================================================================
+
+        //TODO: 1.5. Create a function that counts the number of values that are multiples of 3
+        // and 5 within a specified range, based on two input values. The function should
+        // also display these values and their total sum.
+
+        // function calculteMultiples(number1, number2) {
+        //     let multiplesOf3 = "";
+        //     let multiplesOf5 = "";
+        //     let sum = 0;
+
+        //     for (let i = number1; i <= number2; i++) {
+
+        //         if (i % 3 == 0) {
+        //             multiplesOf3 += i + ",";
+        //         }
+        //         if (i % 5 === 0) {
+        //             multiplesOf5 += i + ",";
+        //         }
+        //     }
+        //     console.log("Number multiple of 3: " + multiplesOf3);
+        //     console.log("Number multiple of 5: " + multiplesOf5);
+
+        //     for (let i = number1; i <= number2; i++) {
+        //         if (i % 3 == 0 || i % 5 == 0) {
+        //             sum += i;
+        //         }
+        //     }
+        //     console.log("total sum is " + sum);
+        // }
+
+        // calculteMultiples(1, 15);
+
+        //==================================================================================================
+        //TODO:1.6. Write a function that takes a number of rows as input and prints a pattern of
+        // stars. Each row should contain a number of stars equal to the row number.
+
+        let rows = 5;
+        if (isNaN(rows)) {
+            console.log("Invalid input: rows value must be a number");
+        } else {
+            for (let i = 1; i <= rows; i++) {
+                let stars = "";
+                for (let j = 1; j <= i; j++) {
+                    stars += "*";
+                }
+                console.log(stars);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

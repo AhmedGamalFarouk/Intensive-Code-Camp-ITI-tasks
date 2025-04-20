@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <center>
+        <h1>Parent Window</h1>
+        <input type="button" value="open win" onclick="openWin()" />
+        <input type="button" value="close win" onclick="closeWin()" />
+        <input type="button" value="move win" onclick="moveWin()" />
+        <input type="button" value="stop movement" onclick="stopMovement()" />
+
+    </center>
+
+
+    <script>
+        let win;
+        let movementInterval;
+        let yDirection = 1;
+        let y = 0;
+        const step = 10;
+
+        function openWin() {
+            win = open('Child.html', '', 'width=150,height=150,alwaysRaised=yes');
+            setTimeout(() => {
+                if (win && !win.closed) win.focus();
+            }, 50);
+        }
+
+        function closeWin() {
+            if (win && !win.closed) win.close();
+        }
+
+        function moveWin() {
+            if (!win || win.closed) {
+                alert('Child window is not open!');
+                return;
+            }
+
+            movementInterval = setInterval(function () {
+                if (y <= 0) {
+                    yDirection = 1;
+                    y = 0;
+                } else if (y >= screen.height - 150) {
+                    yDirection = -1;
+                    y = screen.height - 150;
+                }
+
+                y += step * yDirection;
+
+                try {
+                    win.moveTo(win.screenX, y);
+                    win.focus();
+                } catch (e) {
+                    clearInterval(movementInterval);
+                    alert('Child window is closed!');
+                }
+            }, 200);
+        }
+
+        function stopMovement() {
+            if (movementInterval) {
+                clearInterval(movementInterval);
+                movementInterval = null;
+                setTimeout(() => {
+                    if (win && !win.closed) win.focus();
+                }, 50);
+            } else {
+                alert('Window is not moving!');
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+<!-- 
+2.1.1. Create a parent window that opens a flying child window. Hint: Start by
+creating a parent window that opens a child window.
+Child window should always be on top view and moves up and down within
+boundaries of user screen.
+Parent window should contain a button that stops child window movement -->

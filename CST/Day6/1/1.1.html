@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+   
+
+</head>
+<body>
+
+    <input type="button" id="input" value="open window" onclick="openWin()"> </input>
+
+    <script>
+
+function openWin() {
+            const text = "Lorem ipsum dolor sit amet...";
+            let index = 0;
+            let childTextElement;
+            const win = open('1.1 child.html', '', 'width=300,height=200');
+            win.onload = function () {
+
+                childTextElement = win.document.getElementById('childText');
+                const interval = setInterval(function changeContent() {
+                    if (index < text.length) {
+                        childTextElement.innerHTML += text[index];
+                        index++;
+                    } else {
+                        clearInterval(interval); 
+                    }
+                }, 500);
+            };
+        }
+    
+
+    </script>
+</body>
+</html>

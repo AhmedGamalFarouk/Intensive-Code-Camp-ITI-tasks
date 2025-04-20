@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>User Profile</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src='cookie.JS'></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            padding: 20px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .profile-info {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .profile-item {
+            margin-bottom: 15px;
+        }
+
+        .profile-item label {
+            font-weight: bold;
+            display: inline-block;
+            width: 100px;
+        }
+
+        .color-preview {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .back-button {
+            display: block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>User Profile</h2>
+    <div id="welcomeMessage" style="text-align: center; margin-bottom: 20px;"></div>
+    <div id="genderImage" style="text-align: center; margin-bottom: 20px;"></div>
+    <div class="profile-info" id="profileInfo">
+        <div class="profile-item">
+            <label>Name:</label>
+            <span id="userName">Not set</span>
+        </div>
+        <div class="profile-item">
+            <label>Age:</label>
+            <span id="userAge">Not set</span>
+        </div>
+        <div class="profile-item">
+            <label>Gender:</label>
+            <span id="userGender">Not set</span>
+        </div>
+        <div class="profile-item">
+            <label>Favorite Color:</label>
+            <span id="userFavColor">Not set</span>
+            <span id="colorPreview" class="color-preview"></span>
+        </div>
+        <div class="profile-item">
+            <label>Visit Count:</label>
+            <span id="visitCount">1</span>
+        </div>
+    </div>
+
+    <a href="cookie.html" class="back-button">Back to Form</a>
+
+    <script>
+
+        window.onload = function () {
+            const name = getCookie('userName');
+            const age = getCookie('userAge');
+            const gender = getCookie('userGender');
+            const favColor = getCookie('userFavColor');
+
+            let visitCount = 1;
+            if (hasCookie('visitCount')) {
+                visitCount = parseInt(getCookie('visitCount')) + 1;
+            }
+            const expiryDate = new Date();
+            expiryDate.setMonth(expiryDate.getMonth() + 1);
+            setCookie('visitCount', visitCount, expiryDate);
+
+            // Display visit count
+            document.getElementById('visitCount').textContent = visitCount;
+
+            if (name) {
+                const welcomeMsg = document.getElementById('welcomeMessage');
+                welcomeMsg.innerHTML = `Welcome <span style="color: ${favColor}">${name}</span> you have visited this site <span style="color: ${favColor}">${visitCount}</span> times :)`;
+                welcomeMsg.style.fontSize = '18px';
+                welcomeMsg.style.fontWeight = 'bold';
+            }
+
+            if (gender) {
+                const genderImg = document.getElementById('genderImage');
+                if (gender === 'male') {
+                    genderImg.innerHTML = '<img src="pics/1.jpg" alt="Male Profile" style="max-width: 200px; height: auto;">';
+                } else if (gender === 'female') {
+                    genderImg.innerHTML = '<img src="pics/2.jpg" alt="Female Profile" style="max-width: 200px; height: auto;">';
+                }
+            }
+
+            if (name) document.getElementById('userName').textContent = name;
+            if (age) document.getElementById('userAge').textContent = age;
+            if (gender) document.getElementById('userGender').textContent = gender;
+            if (favColor) {
+                document.getElementById('userFavColor').textContent = favColor;
+                document.getElementById('colorPreview').style.backgroundColor = favColor;
+            }
+
+
+            if (!name && !age && !gender && !favColor) {
+                document.getElementById('profileInfo').innerHTML = '<p>No user information found. Please fill out the form first.</p>';
+            }
+        };
+    </script>
+</body>
+
+</html>

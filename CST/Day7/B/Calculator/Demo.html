@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events </title>
+  <style>
+    input {
+      margin: 5px;
+    }
+  </style>
+  <script src="script.js"></script>
+</head>
+
+<body>
+  <input type="button" value="  1  " onclick="displayValue(this)" />
+  <input type="button" value="  2  " onclick="displayValue(this)" />
+  <input type="button" value="  3  " onclick="displayValue(this)" />
+  <input type="button" value="  4  " onclick="displayValue(this)" />
+  <input type="button" value="  5  " onclick="displayValue(this)" />
+  <input type="button" value="  6  " onclick="displayValue(this)" />
+  <input type="button" value="  7  " onclick="displayValue(this)" />
+  <input type="button" value="  8  " onclick="displayValue(this)" />
+  <input type="button" value="  9  " onclick="displayValue(this)" />
+  <input type="text" id="txt1" />
+  <input type="button" value="c" onclick="clearDisplay()" />
+  <input type="button" value="<<" onclick="backSpace()" />
+  <input type="button" value="+" onclick="add()" />
+  <input type="button" value="-" onclick="subtract()" />
+  <input type="button" value="*" onclick="multiply()" />
+  <input type="button" value="/" onclick="divide()" />
+  <input type="button" value="=" onclick="calculate()" />
+
+  <!-- <input type="text" onfocus="select()"/> -->
+  <!-- <input type="text" onblur="displayContent(this)" /> -->
+  <input type="button" onclick="displaySelectedItems()" value="display" />
+  <div id="div1"></div>
+  <select id="menu" multiple size="3">
+    <option>option 1</option>
+    <option>option 2</option>
+    <option>option 3</option>
+    <option>option 4</option>
+    <option>option 5</option>
+    <option>option 6</option>
+    <option>option 7</option>
+    <option>option 8</option>
+  </select>
+
+
+
+</body>
+
+</html>

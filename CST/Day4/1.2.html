@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <script>
+
+        let input;
+        let caseSensitivity;
+        let reversedInput = "";
+
+        input = prompt("Enter a String: ");
+        caseSensitivity = confirm("Do you want to consider difference between letter cases?");
+
+        if (!caseSensitivity) {
+            let lowercase = input.toLowerCase();
+
+            for (let i = lowercase.length - 1; i >= 0; i--) {
+                reversedInput += lowercase[i];
+            }
+
+            if (lowercase === reversedInput) {
+                console.log("The string is a palindrome");
+            } else {
+                console.log("The string is not a palindrome");
+            }
+        }
+        else {
+            for (let i = input.length - 1; i >= 0; i--) {
+                reversedInput += input[i];
+            }
+
+            if (input === reversedInput) {
+                console.log("The string is a palindrome");
+            } else {
+                console.log("The string is not a palindrome");
+            }
+        }
+    </script>
+</body>
+
+</html>

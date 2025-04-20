@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cloned Image</title>
+    <style>
+        .top-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .bottom-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+
+        #nav {
+            list-style-type: circle;
+            margin-top: 250px;
+            padding: 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="original">
+        <img src="dom.jpg" alt="hello..it rains over here:)" />
+    </div>
+
+    <script>
+        window.onload = function () {
+            const originalImg = document.querySelector('#original img');
+
+            originalImg.classList.add('top-left');
+
+            const clonedImg = originalImg.cloneNode(true);
+
+            clonedImg.classList.remove('top-left');
+            clonedImg.classList.add('bottom-right');
+
+            document.body.appendChild(clonedImg);
+
+            fetch('DOM_Node.html')
+                .then(response => response.text())
+                .then(html => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const originalList = doc.querySelector('#nav');
+
+                    if (originalList) {
+                        const clonedList = originalList.cloneNode(true);
+                        clonedList.style.listStyleType = 'circle';
+                        document.body.appendChild(clonedList);
+                    }
+                })
+                .catch(error => console.error('Error fetching DOM_Node.html:', error));
+        };
+    </script>
+</body>
+
+</html>

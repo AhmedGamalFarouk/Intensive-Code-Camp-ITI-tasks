@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+
+<body>
+    <script>
+
+
+        function validateForm() {
+
+            let name;
+            let phoneNumber;
+            let mobileNumber;
+            let email;
+            let color;
+
+            while (true) {
+                name = prompt("Enter your name:");
+
+                if (/^[a-z A-Z \s]+$/.test(name)) {
+                    break;
+                }
+                else {
+                    alert("Invalid name. Please enter characters only.");
+
+                }
+
+            }
+
+            while (true) {
+                phoneNumber = prompt("Enter your phone number:");
+                if (/^\d{8}$/.test(phoneNumber)) {
+                    break;
+                }
+                else {
+                    alert("Invalid phone number. Please enter 8 digits.");
+                }
+            }
+            while (true) {
+                mobileNumber = prompt("Enter your mobile number:");
+                if (/^(010|011|012)\d{8}$/.test(mobileNumber)) {
+                    break;
+                }
+                else {
+                    alert("Invalid mobile number. Please enter 11 digits");
+                }
+            }
+            while (true) {
+                email = prompt("Enter your email:");
+                if (/^[a-z A-Z 0-9]+@[a-zA-Z0-9.-]+\..+$/.test(email)) {
+                    break;
+                }
+                else {
+                    alert("Invalid email. Please enter a valid email address.");
+                }
+            }
+
+            while (true) {
+                color = prompt("choose a color:");
+                if (/^(red|green|blue)$/.test(color)) {
+                    break;
+                } else {
+                    alert("Invalid color. Please choose red, green, or blue.");
+                }
+            }
+
+            let date = "18/3/2025";
+            let message =
+
+                `Welcome, ${name}!\nPhone Number: ${phoneNumber}\nMobile Number: ${mobileNumber}\nEmail: ${email}\nToday's Date: ${date}`;
+
+
+            console.log("%c" + message, "color: " + color);
+
+        }
+        validateForm();
+
+    </script>
+</body>
+
+</html>
