@@ -1,0 +1,110 @@
+SingleChildScrollView:
+- Allows the whole body to scroll if the content overflows the screen.
+- The async keyword allows the function to wait for the user to pick a time.
+- showTimePicker() opens a dialog where the user can choose a time.
+
+selectedTime will:
+contain the chosen time (TimeOfDay)
+or be null if the user cancels
+
+    _timeTextEditingController.text = selectedTime.toString();
+
+This line immediately sets the text field to a raw string like TimeOfDay(10:30) just in case.
+But actually, this can be removed because the better formatted version is set below.
+
+    if (selectedTime != null) {
+      _timeTextEditingController.text = selectedTime.format(context);
+    }
+
+-Checks if a time was selected (i.e., the user didn’t press cancel).
+-Then, it formats the time to something user-friendly like 10:30 AM or 8:45 PM.
+-And it sets that formatted string in the TextField.
+
+
+TextEditingController is a helper class used in Flutter to:
+Read the current value of a TextField
+Set or update the value of a TextField programmatically
+Clear the text
+Listen for changes (if needed)
+
+✅ What is mainAxisSize?
+mainAxisSize is a property of layout widgets like Column and Row.
+It controls how much space the widget should take along its main axis.
+
+🎯 What does MainAxisSize.min mean?
+MainAxisSize.min tells the widget:
+"Only take up as much space as you need for the children — no more."
+
+
+Navigator.pop(context);
+
+✅ Meaning:
+This line closes the current screen or dialog and goes back to the previous one in the navigation stack.
+
+
+✅ 1. What is a Form widget in Flutter?
+The Form widget is used to group multiple input fields (TextField, TextFormField, etc.) together and manage their validation and state.
+It acts like a container for user input.
+
+✅ 3. What is the key for?
+The key helps Flutter uniquely identify the Form so you can use its methods like validate() or save().
+
+var formkey = GlobalKey<FormState>();
+
+This line creates a unique key that will be used to identify and control a Form widget.
+
+formkey	-----> The name of your key variable (you can name it anything)
+GlobalKey<FormState>()  --->	Creates a globally unique key for a Form that can be used to access and control its state (like validation, saving, etc.)
+
+
+  factory TaskCategoryModel.fromJson(Map<String, dynamic> json) {}
+  A factory constructor to create a TaskCategoryModel from a JSON map.
+
+      return TaskCategoryModel(
+      taskType: json['taskType'],
+      taskTypeId: json['taskTypeId'],
+      )
+      Parses taskType and taskTypeId from the JSON map.
+
+            data:
+          (json['data'] as List)
+              .map((taskJson) => TaskModel.fromJson(taskJson))
+              .toList(),
+)
+Converts the list of task JSON objects into a list of TaskModel instances.
+  Map<String, dynamic> toJson() {
+    return {
+      'taskType': taskType,
+      'data': data.map((task) => task.toJson()).toList(),
+    };
+  }
+
+Converts the model back to a JSON-like map (e.g., for saving or sending).
+
+  factory TaskModel.fromJson(Map<String, dynamic> json) {
+    return TaskModel(
+      task: json['task'],
+      time: json['time'],
+    );
+  }
+
+Creates a TaskModel instance from a JSON map.
+
+  Map<String, dynamic> toJson() {
+    return {'task': task, 'time': time};
+  }
+}
+
+Converts the model back to JSON-like format.
+
+GestureDetector is a Flutter widget that detects user interaction gestures such as taps, swipes, drags, long presses, and more. It allows you to wrap any widget and respond to specific gestures without rendering anything itself.
+
+In Flutter, showDialog is a built-in function used to display a dialog box (a pop-up window) over the current screen. It's often used to show alerts, confirmations, forms, or custom widgets that require user interaction before continuing.
+
+showDialog: A function that shows the dialog.
+
+context: The current BuildContext.
+
+builder: A function that returns the widget to display in the dialog.
+
+AlertDialog: A common dialog type with title, content, and actions.

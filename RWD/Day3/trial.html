@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Learning Website</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --sidebar-width: 120px;
+            --navbar-height: auto; /* Allow height to adjust on small screens */
+            --navbar-min-height-md: 60px; /* Keep min height for md screens */
+        }
+
+        .bg-flutter { background-color: #54C5F8; }
+        .bg-kotlin { background-color: #A97BFF; }
+        .bg-dart { background-color: #4c64a5; }
+        .bg-react-native { background-color: #2f535e; }
+        .bg-sidebar { background-color: #2c3e50; }
+
+        /* --- Sidebar Specific (LG screens and up) --- */
+        .sidebar-fixed-lg {
+            width: var(--sidebar-width);
+            z-index: 1030;
+        }
+
+        @media (min-width: 992px) { /* lg breakpoint */
+            main,
+            footer.footer-adjusted {
+                margin-left: var(--sidebar-width);
+            }
+            body {
+                padding-top: 0;
+            }
+            /* Hide top nav completely on large screens */
+            .navbar.d-lg-none {
+                display: none !important;
+            }
+        }
+
+        /* --- Top Navbar Specific (Screens smaller than LG) --- */
+        .navbar.top-nav-sm-md { /* Renamed class for clarity */
+            min-height: var(--navbar-min-height-md); /* Apply min-height for md */
+            align-items: center;
+            padding-top: .5rem; /* Add some padding */
+            padding-bottom: .5rem;
+        }
+
+        @media (max-width: 991.98px) { /* Screens smaller than lg */
+             body {
+                 /* Adjust padding based on actual nav height */
+                 /* This might need JS for perfect accuracy, but CSS approx is often ok */
+                 padding-top: 80px; /* Start with an estimate, adjust as needed */
+             }
+            /* Default icon sizes for navbar (md screens) */
+            .top-nav-sm-md .navbar-nav .nav-link .rounded-circle {
+                width: 38px !important;
+                height: 38px !important;
+                margin: 0 5px;
+            }
+            .top-nav-sm-md .navbar-nav .nav-link img {
+                width: 18px !important;
+                height: 18px !important;
+            }
+             .top-nav-sm-md .navbar-brand svg { /* Logo size in navbar (md screens) */
+                 height: 35px;
+                 width: auto;
+             }
+            /* Ensure the div containing icons is always visible and centered on md */
+             .top-nav-sm-md .navbar-collapse {
+                 display: flex !important; /* Override Bootstrap's hiding */
+                 flex-basis: auto;
+                 justify-content: center; /* Center the UL container on md */
+             }
+             .top-nav-sm-md .navbar-nav {
+                 flex-direction: row; /* Ensure horizontal layout on md */
+             }
+        }
+
+        /* --- Small Screen Navbar Layout (< 768px) --- */
+        @media (max-width: 767.98px) { /* Below md breakpoint */
+            body {
+                 /* May need different padding if nav height changes drastically */
+                 padding-top: 130px; /* Increase padding estimate for taller nav */
+            }
+             .top-nav-sm-md {
+                 min-height: var(--navbar-height); /* Reset min-height */
+                 height: auto; /* Allow height to grow */
+             }
+
+            /* Hide SVG Logo */
+            .top-nav-sm-md .navbar-brand {
+                display: none !important;
+            }
+
+            /* Icons container takes full width */
+            .top-nav-sm-md .navbar-collapse {
+                 width: 100%;
+                 justify-content: center; /* Center the flex container */
+            }
+
+             /* Flexbox layout for icons */
+            .top-nav-sm-md .navbar-nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center; /* Center items on their lines */
+                width: 100%; /* Or adjust as needed */
+                padding-left: 0;
+                list-style: none;
+                margin-top: 0; /* Remove margin */
+                flex-direction: row; /* Override potential column direction */
+            }
+
+            /* Style the first icon */
+            .top-nav-sm-md .navbar-nav .nav-item:first-child {
+                flex-basis: 100%; /* Take full width */
+                text-align: center;
+                margin-bottom: .75rem; /* Space below large icon */
+            }
+            .top-nav-sm-md .navbar-nav .nav-item:first-child .nav-link .rounded-circle {
+                width: 60px !important;
+                height: 60px !important;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .top-nav-sm-md .navbar-nav .nav-item:first-child .nav-link img {
+                 width: 30px !important;
+                 height: 30px !important;
+            }
+
+            /* Style the rest of the icons (in the row below) */
+            .top-nav-sm-md .navbar-nav .nav-item:not(:first-child) .nav-link .rounded-circle {
+                 width: 38px !important;
+                 height: 38px !important;
+                 margin: 0 3px;
+            }
+             .top-nav-sm-md .navbar-nav .nav-item:not(:first-child) .nav-link img {
+                 width: 18px !important;
+                 height: 18px !important;
+            }
+            .top-nav-sm-md .navbar-nav .nav-item:not(:first-child) {
+                 flex-basis: auto;
+                 padding: 0;
+             }
+        }
+
+
+        /* --- General Adjustments --- */
+        .course-card-img {
+            height: 150px;
+            object-fit: contain;
+            padding: 1rem;
+        }
+
+        .tech-icon-circle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+            border: 2px solid white;
+            text-decoration: none;
+        }
+        .sidebar-icon-size { /* Size for sidebar */
+             width: 60px;
+             height: 60px;
+        }
+         .sidebar-icon-size img {
+             width: 30px;
+             height: 30px;
+         }
+
+         .footer-adjusted .container-lg {
+             max-width: 1140px;
+             padding-right: var(--bs-gutter-x, .75rem);
+             padding-left: var(--bs-gutter-x, .75rem);
+             margin-right: auto;
+             margin-left: auto;
+         }
+
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar (Visible on LG and up) -->
+    <div class="position-fixed top-0 start-0 bg-sidebar vh-100 d-none d-lg-flex flex-column align-items-center justify-content-start p-0 overflow-hidden sidebar-fixed-lg">
+        <!-- SVG Logo -->
+        <a href="#" class="d-block mt-2 mb-3 px-2">
+            <svg width="100%" height="auto" viewBox="0 0 128 200" xmlns="http://www.w3.org/2000/svg">
+                <path d=" M24 0 C18 0 16 4 16 10 V152 H32 A32 32 0 0 1 96 152 H112 V10 C112 4 110 0 104 0 H24 Z M32 152 A64 48 0 0 0 96 152 A64 48 0 0 1 32 152 Z " fill="#0b5ed7" />
+            </svg>
+        </a>
+        <!-- Tech Icons for Sidebar -->
+        <div class="d-flex flex-column align-items-center w-100">
+             <a href="#flutter" class="rounded-circle bg-flutter tech-icon-circle sidebar-icon-size my-3" title="Flutter Courses">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
+            </a>
+            <a href="#kotlin" class="rounded-circle bg-kotlin tech-icon-circle sidebar-icon-size my-3" title="Kotlin Courses">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin">
+            </a>
+            <a href="#dart" class="rounded-circle bg-dart tech-icon-circle sidebar-icon-size my-3" title="Dart Courses">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart">
+            </a>
+            <a href="#reactnative" class="rounded-circle bg-react-native tech-icon-circle sidebar-icon-size my-3" title="React Native Courses">
+                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React Native">
+            </a>
+        </div>
+    </div>
+
+    <!-- Top Navbar (Visible on MD and SM screens - hidden on LG and up) -->
+    <!-- Removed navbar-expand-md to prevent default collapse behavior interfering -->
+    <!-- Added custom class top-nav-sm-md -->
+    <nav class="navbar navbar-dark bg-sidebar fixed-top d-lg-none top-nav-sm-md">
+        <div class="container-fluid">
+            <!-- Navbar Brand (Logo) - Hidden on small screens via CSS -->
+             <a class="navbar-brand" href="#">
+                 <svg viewBox="0 0 128 200" xmlns="http://www.w3.org/2000/svg" class="d-inline-block align-text-top">
+                     <path d=" M24 0 C18 0 16 4 16 10 V152 H32 A32 32 0 0 1 96 152 H112 V10 C112 4 110 0 104 0 H24 Z M32 152 A64 48 0 0 0 96 152 A64 48 0 0 1 32 152 Z " fill="#0b5ed7" />
+                 </svg>
+             </a>
+
+            <!-- REMOVED Navbar Toggler -->
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavIcons" aria-controls="navbarNavIcons" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> -->
+
+            <!-- Navbar Items (Icons) -->
+            <!-- Removed collapse class, kept navbar-collapse for structure/targeting -->
+            <!-- Removed id, justify-content-center (handled by CSS) -->
+            <div class="navbar-collapse">
+                <!-- Layout controlled entirely by CSS rules now -->
+                <ul class="navbar-nav">
+                    <!-- Flutter -->
+                    <li class="nav-item">
+                        <a class="nav-link p-1" href="#flutter" title="Flutter Courses">
+                             <div class="rounded-circle bg-flutter tech-icon-circle">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" alt="Flutter">
+                            </div>
+                        </a>
+                    </li>
+                     <!-- Kotlin -->
+                    <li class="nav-item">
+                         <a class="nav-link p-1" href="#kotlin" title="Kotlin Courses">
+                             <div class="rounded-circle bg-kotlin tech-icon-circle">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" alt="Kotlin">
+                            </div>
+                        </a>
+                    </li>
+                     <!-- Dart -->
+                    <li class="nav-item">
+                        <a class="nav-link p-1" href="#dart" title="Dart Courses">
+                             <div class="rounded-circle bg-dart tech-icon-circle">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" alt="Dart">
+                            </div>
+                        </a>
+                    </li>
+                    <!-- React Native -->
+                    <li class="nav-item">
+                        <a class="nav-link p-1" href="#reactnative" title="React Native Courses">
+                             <div class="rounded-circle bg-react-native tech-icon-circle">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React Native">
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Sections remain the same -->
+        <!-- Hero Section -->
+        <section class="py-5 bg-light">
+            <div class="container container-lg">
+                 <div class="row">
+                     <div class="col-lg-8 offset-lg-2 text-center">
+                         <h2 class="display-4">Learn Mobile Development</h2>
+                         <p class="lead">Master the most popular frameworks and languages for building cross-platform mobile applications.</p>
+                         <button class="btn btn-primary btn-lg">Start Learning</button>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Featured Courses Section -->
+         <section class="py-5" id="courses">
+            <div class="container container-lg">
+                <h2 class="text-center mb-4">Featured Courses</h2>
+                <div class="row">
+                    <!-- Card 1: Flutter -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg" class="card-img-top course-card-img" alt="Flutter">
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="card-title fs-5">Flutter Fundamentals</h3>
+                                <p class="card-text flex-grow-1">Learn to build beautiful, natively compiled applications for mobile, web, and desktop.</p>
+                                <a href="#" class="btn btn-outline-primary mt-auto">View Course</a>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Card 2: Kotlin -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg" class="card-img-top course-card-img" alt="Kotlin">
+                             <div class="card-body d-flex flex-column">
+                                <h3 class="card-title fs-5">Kotlin for Android</h3>
+                                <p class="card-text flex-grow-1">Master Kotlin programming and build modern Android applications.</p>
+                                <a href="#" class="btn btn-outline-primary mt-auto">View Course</a>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Card 3: Dart -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg" class="card-img-top course-card-img" alt="Dart">
+                             <div class="card-body d-flex flex-column">
+                                <h3 class="card-title fs-5">Dart Programming</h3>
+                                <p class="card-text flex-grow-1">Learn the Dart programming language from scratch for Flutter development.</p>
+                                <a href="#" class="btn btn-outline-primary mt-auto">View Course</a>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Card 4: React Native -->
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card h-100">
+                             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="card-img-top course-card-img" alt="React Native">
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="card-title fs-5">React Native</h3>
+                                <p class="card-text flex-grow-1">Build native mobile apps using JavaScript and React.</p>
+                                <a href="#" class="btn btn-outline-primary mt-auto">View Course</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us Section -->
+        <section class="py-5 bg-light">
+             <div class="container container-lg">
+                <h2 class="text-center mb-4">Why Choose Our Platform</h2>
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100 border-0 bg-transparent">
+                            <div class="card-body text-center">
+                                <i class="fas fa-laptop-code fa-3x mb-3 text-primary"></i>
+                                <h3 class="card-title">Practical Projects</h3>
+                                <p class="card-text">Build real-world applications with our project-based learning approach.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100 border-0 bg-transparent">
+                            <div class="card-body text-center">
+                                <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                                <h3 class="card-title">Expert Instructors</h3>
+                                <p class="card-text">Learn from industry professionals with years of experience.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100 border-0 bg-transparent">
+                            <div class="card-body text-center">
+                                <i class="fas fa-certificate fa-3x mb-3 text-primary"></i>
+                                <h3 class="card-title">Certification</h3>
+                                <p class="card-text">Earn certificates upon completion to boost your resume.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flutter Video Section -->
+               <!-- Flutter Video Section -->
+               <section class="py-5" id="flutter">
+                <div class="container container-lg">
+                  <h2 class="text-center mb-4">Learn How Flutter Works</h2>
+                  <div class="row align-items-center">
+                      <div class="col-lg-6 mb-4 mb-lg-0">
+                          <!-- Video Container: Hidden below MD -->
+                          <div class="ratio ratio-16x9 d-none d-md-block">
+                              <iframe src="https://www.youtube.com/embed/xiW3ahr4CRU?si=nknueHh2aQSkKzAb" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                          </div>
+                          <!-- Placeholder Text: Visible below MD -->
+                          <div class="d-block d-md-none text-center py-5 bg-light rounded">
+                               <span class="display-4 text-muted fw-bold">Media</span>
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <h3 class="mb-3">Flutter's Three Trees Architecture</h3>
+                          <p>Flutter uses a unique architecture based on three trees that work together to create beautiful, responsive UIs:</p>
+                          <ul class="list-group list-group-flush mb-3">
+                              <li class="list-group-item bg-transparent px-0"><strong>Widget Tree:</strong> Describes the UI as immutable objects</li>
+                              <li class="list-group-item bg-transparent px-0"><strong>Element Tree:</strong> Manages state and lifecycle of widgets</li>
+                              <li class="list-group-item bg-transparent px-0"><strong>Render Tree:</strong> Handles layout and painting to the screen</li>
+                          </ul>
+                          <p>This architecture enables Flutter to achieve 60fps animations and responsive interfaces across platforms.</p>
+                          <a href="#" class="btn btn-primary">Learn More About Flutter</a>
+                      </div>
+                  </div>
+              </div>
+          </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-5 bg-light">
+            <div class="container container-lg">
+                <h2 class="text-center mb-4">What Our Students Say</h2>
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                        <span class="text-white fw-bold">JD</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">John Doe</h5>
+                                        <small class="text-muted">Flutter Developer</small>
+                                    </div>
+                                </div>
+                                <p class="card-text">"The Flutter course was exactly what I needed... I landed a job within 3 months."</p>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-4 mb-4">
+                         <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                        <span class="text-white fw-bold">JS</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">Jane Smith</h5>
+                                        <small class="text-muted">Kotlin Developer</small>
+                                    </div>
+                                </div>
+                                <p class="card-text">"The instructors are incredibly knowledgeable... built complex Android apps."</p>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-lg-4 mb-4">
+                         <div class="card h-100 shadow-sm">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">
+                                        <span class="text-white fw-bold">RJ</span>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0">Robert Johnson</h5>
+                                        <small class="text-muted">React Native Developer</small>
+                                    </div>
+                                </div>
+                                <p class="card-text">"The React Native course provided me with the skills I needed to freelance..."</p>
+                                <div class="text-warning">
+                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Testimonials -->
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5 footer-adjusted">
+         <div class="container container-lg">
+             <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <h5 class="mb-3">About Us</h5>
+                    <p class="mb-0 small">We are dedicated to providing high-quality mobile development education to help you build your career.</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white me-2"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-2"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4 mb-lg-0">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#courses" class="text-white text-decoration-none">Courses</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">About</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-4 col-6 mb-4 mb-lg-0">
+                    <h5 class="mb-3">Resources</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Documentation</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">FAQ</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Support</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="mb-3">Contact Us</h5>
+                    <ul class="list-unstyled small">
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 123 Learning St, Edu City</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</li>
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> info@mobiledev.com</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="row align-items-center small">
+                <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                    <p class="mb-0">© 2025 Your Brand. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Privacy Policy</a></li>
+                        <li class="list-inline-item mx-2">|</li>
+                        <li class="list-inline-item"><a href="#" class="text-white text-decoration-none">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

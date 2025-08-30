@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Half Circle Animation</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        canvas {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="400" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = 200;
+        let cycleCount = 0;
+        const maxCycles = 10;
+        let animationStep = 0;
+        let intervalId = null;
+
+        function drawHalfCircle(startAngle, endAngle) {
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function drawFullCircle() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.fillStyle = 'yellow';
+            ctx.fill();
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+        }
+
+        function animateCircle() {
+            if (cycleCount >= maxCycles) {
+                clearInterval(intervalId);
+                drawFullCircle();
+                console.log("Animation finished, showing full circle.");
+                return;
+            }
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (animationStep === 0) {
+                drawHalfCircle(Math.PI, 0);
+                animationStep = 1;
+
+            } else {
+
+                drawHalfCircle(0, Math.PI);
+                animationStep = 0;
+                cycleCount++;
+                console.log(`Cycle: ${cycleCount}`);
+            }
+        }
+        intervalId = setInterval(animateCircle, 500);
+
+    </script>
+</body>
+
+</html>

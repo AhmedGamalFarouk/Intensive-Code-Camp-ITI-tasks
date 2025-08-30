@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+</head>
+
+<body>
+    <canvas id="myCanvas" width="1200" height="800" style="border:1px solid red"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        const width = canvas.width;
+        const height = canvas.height;
+
+        let x = 0;
+        let y = 0;
+        let myinterval;
+
+        const stepX = 5;
+        const stepY = (height / width) * stepX;
+
+        function drawLine() {
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(x, y);
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            x += stepX;
+            y += stepY;
+
+            if (x >= width || y >= height) {
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(width, height);
+                ctx.strokeStyle = "red";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                clearInterval(intervalId);
+                alert("animation ended");
+            }
+
+        }
+
+        window.onload = () => {
+            myinterval = setInterval(drawLine, 16);
+        };
+    </script>
+</body>
+
+</html>
